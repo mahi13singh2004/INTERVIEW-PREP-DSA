@@ -1,0 +1,9 @@
+class Solution {
+  public:
+    pair<long long, long long> getMinMax(vector<long long int> arr) {
+        long long min=*min_element(arr.begin(),arr.end());
+        long long max=*max_element(arr.begin(),arr.end());
+        pair<long long, long long>p={min,max};
+        return p;
+    }
+};
