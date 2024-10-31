@@ -1,0 +1,50 @@
+class Solution {
+public:
+
+    void merge(vector<int>&nums, int start, int mid, int end){
+        vector<int>temp;   
+        int i=start; //temp pointer pointing to start of left half
+        int j=mid+1; //temp pointer pointing to start of right half
+
+        while(i<=mid && j<=end){ //merge two sorted array in 1 array
+            if(nums[i]<=nums[j]){
+                temp.push_back(nums[i]);
+                i++;
+            }
+            else{
+                temp.push_back(nums[j]);
+                j++;
+            }
+        }
+
+        while(i<=mid){
+            temp.push_back(nums[i]);
+            i++;
+        }
+
+        while(j<=end){
+            temp.push_back(nums[j]);
+            j++;
+        }
+
+        for(int i=start; i<=end; i++){
+            nums[i]=temp[i-start]; //nums me specific position me dalna hai but 
+        }  //temp me 0 index se access krna hai isliye i-start
+    }
+
+    void ms(vector<int>&nums, int start, int end){
+        if(start==end) return; //if both equal, it means arr has 1 element, return
+        int mid=(start+end)/2; 
+        ms(nums,start,mid); //sort left half
+        ms(nums,mid+1,end); //sort right half
+        merge(nums,start,mid,end); //merging them
+    }
+
+    vector<int> sortArray(vector<int>& nums) { 
+        int n=nums.size();
+        int l=0; //start index
+        int r=n-1; //end index
+        ms(nums,l,r); //send arr, start, end
+        return nums;
+    }
+};
